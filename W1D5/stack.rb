@@ -1,5 +1,6 @@
 class Stack
   attr_reader :underlying_array
+
   def initialize
     @underlying_array = []
   end
@@ -16,7 +17,8 @@ class Stack
   def pop
     underlying_array.pop
   end
-
+  
+  #can only see the last part of the stack
   def peek
     underlying_array.last
   end
