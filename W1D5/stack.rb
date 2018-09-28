@@ -1,14 +1,24 @@
 class Stack
+  attr_reader :underlying_array
   def initialize
+    @underlying_array = []
   end
 
-  def push
+  #only work with things on the end of array.
+  #only supports 2 modifications (push and pop)
+
+
+  def push(values)
+    underlying_array.push(values)
+    values
   end
 
   def pop
+    underlying_array.pop
   end
 
   def peek
+    underlying_array.last
   end
 
 end
