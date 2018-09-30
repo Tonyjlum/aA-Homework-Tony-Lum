@@ -7,7 +7,7 @@ class Simon
     @sequence_length = 1
     @game_over = false
     @seq = []
-    #color stay for lest time on the screen as game progess.
+    #color stay for less time on the screen as game progess.
     @sleeptimer = 0.75
   end
 
