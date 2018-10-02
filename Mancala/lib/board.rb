@@ -32,27 +32,36 @@ class Board
       i = start_pos + 1
       last = nil
       until gems.empty?
-
-        if i == 6 && current_player_name == @name1
+        #make a cup1check method
+        if i == 6 && current_player_name == name1
           cups[i] << gems.shift
-          last = i if gems.empty?
+          if gems.empty?
+            last = i
+            break
+          end
           i += 1
         elsif i == 6
           i +=1
         end
 
+        #make a cup2check method
         if i == 13 && current_player_name == name2
           cups[i] << gems.shift
-          last = i if gems.empty?
+          if gems.empty?
+            last = i
+            break
+          end
           i += 1
         elsif i == 13
           i += 1
         end
 
-
         i = 0 if i >= 13
         cups[i] << gems.shift
-        last = i if gems.empty?
+        if gems.empty?
+          last = i
+          break
+        end
         i += 1
 
       end
@@ -64,15 +73,17 @@ class Board
 
   end
 
+
+
   def next_turn(ending_cup_idx)
     # helper method to determine whether #make_move returns :switch, :prompt, or ending_cup_idx
-    debugger
-    if ending_cup_idx == 6 or ending_cup_idx == 13
+    # debugger
+    if ending_cup_idx == 6 || ending_cup_idx == 13
       :prompt
-    elsif @cups[ending_cup_idx].length > 1
+    elsif @cups[ending_cup_idx].length == 1
       :switch
     else
-    ending_cup_idx
+      ending_cup_idx
     end
 
   end
