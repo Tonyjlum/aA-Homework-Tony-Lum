@@ -30,14 +30,12 @@ class Board
       gems = cups[start_pos]
       cups[start_pos] = []
       i = start_pos + 1
-      ending_cup_idx = nil
+      last = nil
       until gems.empty?
-        # puts i
-        # puts current_player
-        # puts current_player_name
+
         if i == 6 && current_player_name == @name1
           cups[i] << gems.shift
-        ending_cup_idx = 6 if gems.empty?
+          last = i if gems.empty?
           i += 1
         elsif i == 6
           i +=1
@@ -45,6 +43,7 @@ class Board
 
         if i == 13 && current_player_name == name2
           cups[i] << gems.shift
+          last = i if gems.empty?
           i += 1
         elsif i == 13
           i += 1
@@ -52,21 +51,22 @@ class Board
 
 
         i = 0 if i >= 13
-
         cups[i] << gems.shift
-        i += 1 unless gems.empty?
-        i
+        last = i if gems.empty?
+        i += 1
+
       end
 
     end
 
-    next_turn(i)
     render
+    next_turn(last)
 
   end
 
   def next_turn(ending_cup_idx)
     # helper method to determine whether #make_move returns :switch, :prompt, or ending_cup_idx
+    debugger
     if ending_cup_idx == 6 or ending_cup_idx == 13
       :prompt
     elsif @cups[ending_cup_idx].length > 1
@@ -86,8 +86,23 @@ class Board
   end
 
   def one_side_empty?
+    @cups[0..5].all? {|cup| cup.empty?} ||
+    @cups[7..12].all? {|cup| cup.empty?}
+
   end
 
   def winner
+    p1count = @cups[6].length
+    p2count = @cups[13].length
+
+  case p1count <=> p2count
+  when 1
+    @name1
+  when -1
+    @name2
+  when 0
+    :draw
+  end
+
   end
 end
